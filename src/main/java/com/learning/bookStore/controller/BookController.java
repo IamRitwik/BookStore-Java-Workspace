@@ -19,8 +19,12 @@ public class BookController {
 		BookDto book = BookDto.builder()
 				.title("Learn Core Java")
 				.build();
+		BookDto book2 = BookDto.builder()
+				.title("Learn Spring Boot")
+				.build();
 		List<BookDto> books = new ArrayList<>();
 		books.add(book);
+		books.add(book2);
 		return ResponseEntity.ok(books);
 		
 	}
