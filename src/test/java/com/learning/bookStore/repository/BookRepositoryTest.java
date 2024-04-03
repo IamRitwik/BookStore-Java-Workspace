@@ -1,5 +1,6 @@
 package com.learning.bookStore.repository;
 
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Assertions;
@@ -22,10 +23,17 @@ public class BookRepositoryTest {
 
 	@Test
 	@Sql(scripts = {"classpath:InsertInitialBookrecordsForTest.sql"})
-	public void shouldAbleTofetchAllBooksInDb() {
+	public void shouldAbleToFetchAllBooksInDb() {
 		Iterable<Book> allBooks = bookRepository.findAll();
 		long totalBookCount = StreamSupport.stream(allBooks.spliterator(), false).count();
 		Assertions.assertEquals(totalBookCount, 2);
+	}
+
+	@Test
+	@Sql(scripts = {"classpath:InsertInitialBookrecordsForTest.sql"})
+	public void shouldReturnOneBookWhenTitleIsTestTitle(){
+		List<Book> testTitle = bookRepository.findBooksByTitle("Test Title");
+		Assertions.assertEquals(testTitle.size(), 1);
 	}
 
 }

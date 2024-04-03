@@ -1,8 +1,9 @@
 package com.learning.bookStore.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.learning.bookStore.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +15,12 @@ import com.learning.bookStore.dto.BookDto;
 @RequestMapping("api/v1/books")
 public class BookController {
 	
+	@Autowired
+	BookService bookService;
+	
 	@GetMapping()
 	public ResponseEntity<List<BookDto>> getBooks(){
-		BookDto book = BookDto.builder()
-				.title("Learn Core Java")
-				.build();
-		BookDto book2 = BookDto.builder()
-				.title("Learn Spring Boot")
-				.build();
-		List<BookDto> books = new ArrayList<>();
-		books.add(book);
-		books.add(book2);
+		List<BookDto> books = this.bookService.getBooks();
 		return ResponseEntity.ok(books);
 		
 	}
